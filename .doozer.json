@@ -1,0 +1,35 @@
+{
+    "artifacts": [
+        "unit*.deb",
+        "unit*.changes",
+    ],
+    "targets": {
+        "raspbian-stretch": {
+            "environment": {
+                "GIT_URL": "https://github.com/nginx/unit.git",
+                "GIT_BRANCH": "master",
+            },
+            "buildenv": "raspbian-stretch",
+            "builddeps": [
+                "sudo",
+                "git",
+                "build-essential",
+                "libxml2-utils",
+                "lsb-release",
+                "debhelper",
+                "fakeroot",
+                "xsltproc",
+                "libphp-embed",
+                "python2.7-dev",
+                "python3.4-dev"
+            ],
+            "buildcmd": [
+                "cd ${WORKDIR}",
+                "rm ${WORKDIR}/unit -R",
+                "git clone -b ${GIT_BRANCH} ${GIT_URL} unit",
+                "cd ${WORKDIR}/unit/pkg",
+                "make deb unit",
+            ]
+        },
+    },
+}
