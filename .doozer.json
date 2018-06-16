@@ -6,8 +6,8 @@
     "targets": {
         "raspbian-stretch": {
             "environment": {
-                "GIT_URL": "https://github.com/nginx/unit.git",
-                "GIT_BRANCH": "master",
+                "GIT_URL": "https://github.com/mpmc/unit.git",
+                "GIT_BRANCH": "raspbian",
             },
             "buildenv": "raspbian-stretch",
             "builddeps": [
@@ -19,16 +19,20 @@
                 "debhelper",
                 "fakeroot",
                 "xsltproc",
+                "devscripts",
+                "lintian",
+                "php-dev",
                 "libphp-embed",
                 "python2.7-dev",
-                "python3.4-dev"
+                "python3.5-dev",
             ],
             "buildcmd": [
                 "cd ${WORKDIR}",
-                "rm ${WORKDIR}/unit -R",
+                "rm ${WORKDIR}/unit -R || true",
                 "git clone -b ${GIT_BRANCH} ${GIT_URL} unit",
                 "cd ${WORKDIR}/unit/pkg",
-                "make deb unit",
+                "make deb",
+                "mv ./deb/debuild*/*.{deb,changes,buildinfo} /project/repo/checkout",
             ]
         },
     },
