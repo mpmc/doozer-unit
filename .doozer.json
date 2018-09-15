@@ -8,6 +8,7 @@
             "environment": {
                 "GIT_URL": "https://github.com/mpmc/unit.git",
                 "GIT_BRANCH": "raspbian",
+                "UNIT_VERSION": "1.4",
             },
             "buildenv": "raspbian-stretch",
             "builddeps": [
@@ -31,6 +32,7 @@
                 "rm ${WORKDIR}/unit -R || true",
                 "git clone -b ${GIT_BRANCH} ${GIT_URL} unit",
                 "cd ${WORKDIR}/unit/pkg",
+                "tar -zcvf ${WORKDIR}/unit-${UNIT_VERSION}.orig.tar.gz ${WORKDIR}/unit",
                 "make deb",
                 "mv ./deb/debuild*/*.{deb,changes,buildinfo} /project/repo/checkout",
             ]
