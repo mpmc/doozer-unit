@@ -7,8 +7,8 @@
         "raspbian-stretch": {
             "environment": {
                 "GIT_URL": "https://github.com/nginx/unit.git",
-                "GIT_BRANCH": "1.7-1",
-                "GIT_SSL_NO_VERIFY": "true",
+                "GIT_BRANCH": "1.8.0-1",
+		"GIT_CURL_VERBOSE": "1",
             },
             "buildenv": "raspbian-stretch",
             "builddeps": [
@@ -29,6 +29,7 @@
             "buildcmd": [
                 "cd ${WORKDIR}",
                 "rm ${WORKDIR}/unit -R || true",
+		"sudo chmod 755 /etc/ssl/certs/ca-certificates.crt",
                 "git clone -b ${GIT_BRANCH} ${GIT_URL} unit",
                 "cd ${WORKDIR}/unit/pkg/deb",
                 "make unit unit-php unit-python35",
